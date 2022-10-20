@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="water_plant_users_action" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">water_plant_management.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>
+                Please add Customers!
+            </p>
+        </field>
+    </record>
+
+    <record id="plant_users_view_tree" model="ir.ui.view">
+        <field name="name">water_plant_management.users.view.tree</field>
+        <field name="model">water_plant_management.users</field>
+        <field name="arch" type="xml">
+            <tree string="Custumers">
+                <field name="name"></field>
+                <field name="mobile_no"></field>
+                <field name="cust_id"></field>
+                <field name="address"></field>
+                <field name="email"></field>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="water_plant_users_view_form" model="ir.ui.view">
+        <field name="name">water_plant_management.users.view.form</field>
+        <field name="model">water_plant_management.users</field>
+        <field name="arch" type="xml">
+            <form string="Customers">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="mobile_no"></field>
+                        <field name="cust_id"></field>
+                        <field name="address"></field>
+                        <field name="email"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View - Group By -->
+    <!-- <record id="water_plant_users_search_view" model="ir.ui.view">
+        <field name="name">water_plant_management.search.view</field>   
+        <field name="model">water_plant_management.users</field>   
+        <field name="arch" type="xml">       
+            <search string="Customer Search">           
+                <group expand="0" string="Group By">
+                        <filter name="group_by_employee" string="Employee"
+                        context="{'group_by': 'name'}" />
+                        <filter name="group_by_date" string="Date"
+                        context="{'group_by': 'mail_date'}" />
+                    </group>
+            </search>   
+        </field>
+    </record> -->
+
+
+    <menuitem id="menu_water_plant_management_root"
+              name="Water Purification Plant Management"
+              sequence="11"/>
+
+
+    <!-- Submenu of User -->
+    <menuitem
+        id="water_plant_management_users_menu"
+        name="Customers"
+        action="water_plant_users_action"
+        parent="menu_water_plant_management_root"
+        sequence="12"/>
+
+</odoo>

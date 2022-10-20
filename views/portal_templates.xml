@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- template for home page -->
+    <template id="portal_my_home_daily_mails" name="Show Daily Mails" inherit_id="portal.portal_my_home" customize_show="True" priority="10">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t  t-call="portal.portal_docs_entry">
+                <t t-set="title">Daily Mails</t>
+                <t t-set="url" t-value="'/my/daily_mails'"/>
+                <t t-set="placeholder_count" t-value="'daily_mails_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+<!-- template for home page breascrumb -->
+    <template id="portal_my_home_menu_breadcrumb" name="Portal layout :  menu entries" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="mails" t-attf-class="breadcrumb-item #{'active'}">
+            <a  t-attf-href="/my/daily_mails">Daily Mails</a>
+            </li>
+            <li t-if="read_mail" t-attf-class="breadcrumb-item #{'active'}">
+            <a  t-attf-href="/my/daily_mails">Daily Mails</a>
+            </li>
+        </xpath>
+    </template>
+
+<!-- Template for time off records details page -->
+    <template id="daily_mails_web_view" name="Payslips" >
+        <t  t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Daily Mails</t>
+            </t>
+
+            <t t-if="not mails">
+                <p>There are currently no mail records.</p>
+            </t>
+
+        
+            <t t-if="mails" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Employee Name</th>
+                        <th>Mail Date</th>
+                        <th>View Mail</th>
+                        <!-- <th>Date From</th>
+                        <th>Date To</th>
+                        <th class="text-center">Status</th>
+                        <th>Print Payslip</th> -->
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <t t-foreach="mails" t-as="mail">
+
+                        <tr>
+                            <td>
+                                <t t-esc="mail.name.name"/>
+                            </td>
+
+                            <td><span t-field="mail.mail_date"/></td>
+
+                            <td>
+                                <a t-att-href="'/my/view_mail/?mail_id=%s' % mail.id">
+                                    <button type="button" class="btn btn-primary btn-lg mt8 o_website_form_send">View
+                                    </button>
+                                </a>
+                            </td>
+                            
+                        </tr>
+                     
+                    </t>
+                </tbody>
+
+                <!-- <tfoot>
+                    <tr>
+                        <td>
+                            <a href="/request/timeoff/" class="btn btn-primary" style="margin-bottom:4rem" role="button">Request time off</a>  
+                        </td>
+                    </tr>    
+                </tfoot> -->
+            
+            </t>
+        </t>
+    </template> 
+
+
+<!-- Read detail mail -->
+    <template id="view_mail_web_view" name="Read Mail">
+        <t t-if="read_mail" t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Read Mail</t>
+            
+            </t>
+            <t t-if="not read_mail">
+                <p>Something went wrong !</p>
+            </t>
+
+        
+            <t  t-call="portal.portal_table">
+    
+                <tbody class="tablebody">
+                    <tr>
+                        <th>Name</th>
+                        <td><span t-field="read_mail.name"/></td>
+                    </tr>
+                    <tr>
+                        <th>Mail Date</th>
+                        <td><span t-field="read_mail.mail_date"/></td>
+                    </tr>
+                    <tr>
+                        <th>Subject</th>
+                        <td><span t-field="read_mail.subject"/></td>
+                    </tr>
+                    <tr>
+                        <th>Mail Body</th>
+                        <td style="overflow: scroll;"><p t-field="read_mail.body"/></td>
+                    </tr>
+                    
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+
+
+
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Customer Card -->
+    <record id="action_report_customer_card" model="ir.actions.report">
+        <field name="name">Customer Card</field>
+        <field name="model">water_plant_management.users</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">water_plant_management.cust_card_template</field>
+        <field name="report_file">water_plant_management.cust_card_template</field>
+        <field name="print_report_name">'%s_card' % object.name</field>
+        <field name="binding_model_id" ref="model_water_plant_management_users"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="cust_card_template" >
+            
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <!-- <link rel="stylesheet" href="/shttemplates/static/src/css/main.css"/> -->
+                    <div class="page">
+                        <h3><strong>Customer Card</strong></h3>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p>Name:</p>
+                                        </div>
+                                        <div class="col-9">
+                                            <p><t t-out="o.name"/></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p>Mobile No:</p>
+                                        </div>
+                                        <div class="col-9">
+                                            <p><t t-out="o.mobile_no"/></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p> Unique Id: </p>
+                                        </div>
+                                        <div class="col-9">
+                                            <p> <t t-out="o.cust_id"/> </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p>Address:</p>
+                                        </div>
+                                        <div class="col-9">
+                                            <p> <t t-out="o.address"/></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>
